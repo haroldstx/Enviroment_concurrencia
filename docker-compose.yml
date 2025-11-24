@@ -30,12 +30,17 @@ services:
 
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: adminpass
+      
+      KC_SPI_THEME_CACHE_TEMPLATES_CACHE_ENABLED: false
+      KC_SPI_THEME_CACHE_STATIC_FILES_CACHE_ENABLED: false
+      KC_HEALTH_ENABLED: true  
     ports:
       - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - C:/Users/Ddubo/Desktop/keycloak-themes:/opt/keycloak/themes
     command: ["start-dev"]
-
 volumes:
   pgdata:
