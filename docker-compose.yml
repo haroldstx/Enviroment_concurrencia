@@ -39,8 +39,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - C:/Users/Ddubo/Desktop/keycloak-themes:/opt/keycloak/themes
+    
     command: ["start-dev"]
 volumes:
   pgdata:

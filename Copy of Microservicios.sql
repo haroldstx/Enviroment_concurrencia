@@ -1,12 +1,12 @@
 CREATE TABLE "User" (
   "id_user" integer PRIMARY KEY,
   "user_name" string,
-  "password" char[10],
+  "password" char(10),
   "email" varchar,
   "first_name" varchar,
   "last_name" varchar,
   "url_image" varchar,
-  "phone" varchar[10]
+  "phone" varchar(10)
 );
 
 CREATE TABLE "Rol" (
@@ -23,14 +23,14 @@ CREATE TABLE "User_Rol" (
 
 CREATE TABLE "Privilege" (
   "id_privilege" INT PRIMARY KEY,
-  "name" "VARCHAR(100)",
+  "name" VARCHAR(100),
   "description" TEXT,
   "created_at" TIMESTAMP
 );
 
 CREATE TABLE "Space" (
   "id_space" integer PRIMARY KEY,
-  "space_name" varchar[50],
+  "space_name" varchar(50),
   "id_owner" integer,
   "created_at" timestamp
 );
