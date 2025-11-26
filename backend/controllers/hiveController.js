@@ -6,6 +6,9 @@ const { Op } = require("sequelize");
 exports.getHives = async( request, response ) => {
     try{
         const { id_user } = request.params;
+        if(!id_user){
+            return response.status(400).json({message: "id_user required."});
+        }
         const users_hives = await User_Hive.findAll({
             where: { id_user }
         })
@@ -41,7 +44,16 @@ exports.createHive = async( request, response ) => {
 exports.invitedToHive = async( request, response ) => {
     try{
         const { id_user, id_hive } = request.body;
-        const user_hive=await User_Hive.create({ id_user, id_hive});
+
+        const hive = await Hive.findByPk(id_hive);
+        if(!hive){
+            return response.status(404).json({ message: "Hive not found."});
+        }
+
+        const user_hive = await User_Hive.create({ id_user, id_hive});
+
+        const newcount_users = hive.count_users+1;
+        await hive.update({ count_users: newcount_users });
 
         response.json(user_hive);
     }catch(error){

@@ -2,7 +2,10 @@ const WorkRoom = require("../models/work_room");
 
 exports.getWorkRooms = async(request, response) => {
     try{
-        const { id_hive }=request.params;
+        const { id_hive } = request.params;
+        if(!id_hive){
+            return response.status(400).json({message: "id_hive required."});
+        }
         const work_rooms=await WorkRoom.findAll({
             where: { id_hive }
         });
@@ -28,7 +31,7 @@ exports.deleteWorkRoom = async(request, response) => {
     try{
         const { id_room }=request.params;
         
-        const deleteRoom = await WorkRoom.findByPk({ id_room });
+        const deleteRoom = await WorkRoom.findByPk(id_room);
         if(!deleteRoom){
             return response.status(404).json({message: "Room not found."});
         }

@@ -26,7 +26,6 @@ exports.inviteUser = async( request, response) => {
         const user = await User.findAll({
             where: { email }
         });
-
         if(!user){
             return response.status(404).json({ message: "User not found."});
         }
