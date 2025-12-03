@@ -19,11 +19,27 @@ function Form() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3003/api/register", formData);
+      await axios.post("http://localhost:8080/api/user/addUser", formData);
       alert("Usuario registrado correctamente");
     } catch (err) {
       console.error(err);
       alert("Error al registrar usuario");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/Logout",
+        {},
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        alert("Logged out successfully");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error during logout");
     }
   };
 
@@ -54,6 +70,14 @@ function Form() {
 
           <button type="submit">Registrar</button>
         </form>
+
+        <div>
+          <a href="/">¿Ya tienes una cuenta? Inicia sesión</a>
+        </div>
+
+        <div>
+          <button formAction={handleLogout}> Logout </button>
+        </div>
       </>
     </>
   );

@@ -4,7 +4,7 @@ services:
     env_file:
       - .env
     ports:
-      - "5435:5432"
+      - "5436:5432"
     healthcheck:
       test:
         [
@@ -17,29 +17,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
+  backend:
+    build: ./backend
+    container_name: backendForKeycloak
     env_file:
       - .env
-    environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/$KC_DB
-      KC_DB_USERNAME: $KC_USERNAME
-      KC_DB_PASSWORD: $KC_PASSWORD
-
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: adminpass
-      
-      KC_SPI_THEME_CACHE_TEMPLATES_CACHE_ENABLED: false
-      KC_SPI_THEME_CACHE_STATIC_FILES_CACHE_ENABLED: false
-      KC_HEALTH_ENABLED: true  
     ports:
-      - "8080:8080"
+      - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
-    
-    command: ["start-dev"]
+
 volumes:
   pgdata:

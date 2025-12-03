@@ -11,7 +11,7 @@ keycloak
     } else {
       ReactDOM.createRoot(document.getElementById("root")).render(
         <React.StrictMode>
-          <App keycloak={keycloak} />
+          <App keycloak />
         </React.StrictMode>
       );
     }
